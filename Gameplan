@@ -1,0 +1,16 @@
+7/18/19
+Here's the gameplan so far:
+
+-Take an image
+-Find each black pixel that borders a blue pixel (water)
+-Take those and put them on a new image
+-Done
+
+Possible problems:
+
+-Names that are written in black will be counted
+-Countries that are colored blue will have their land borders included(probably won't happen if the map isn't garbage)
+-Maps that don't have the water colored blue(older maps)
+-I believe I need to create a fixed size new image, so any maps that are not that size will have to be scaled somehow
+
+Will start actually writing code today, but probably not much
