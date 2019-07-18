@@ -1,5 +1,6 @@
 package ProjectWaterman;
 
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -36,9 +37,33 @@ public class Map
 			e.printStackTrace();
 		}
 	}
+	//looks for ocean(blue) pixels and sets all pixels that are not blue to green
+	public static BufferedImage process(BufferedImage img)
+	{
+		BufferedImage outputImage = new BufferedImage(img.getWidth(), img.getHeight(), BufferedImage.TYPE_INT_RGB);
+		//creates a new blank image that is the same size at the original which we will fill in
+		for(int i = 0; i < img.getHeight(); i++)
+		{
+			for(int j = 0; j < img.getWidth(); j++)
+			{//height/width increment statements
+				String clr = Integer.toHexString(img.getRGB(j, i)).substring(2);//converts int RGB values of the pixel to hex
+			    Color c = Color.decode("#"+clr.toUpperCase());//converts hex to a color object which we will extract the blue value from
+				if(c.getBlue() >= 220)//adjust this for different blue values(different ocean hues
+				{
+					outputImage.setRGB(j, i, -3610881);//sets ocean to a more oceanic blue
+				}
+				else
+				{
+					outputImage.setRGB(j, i, -6881386);//sets non-ocean pixels to green, denoting land
+				}
+			}
+		}
+		return outputImage;
+	}
 	public static void main(String[] args)
 	{
 		BufferedImage image = loadMap(args[0]);
+		image = process(image);
 		outputImage(image);
 	}
 }
